@@ -3,13 +3,18 @@
 namespace App\Models;
 
 use App\Enums\TableStatus;
+use Database\Factories\TableFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(['number', 'capacity', 'status'])]
 class Table extends Model
 {
+    /** @use HasFactory<TableFactory> */
+    use HasFactory;
+
     /**
      * @var array<string, mixed>
      */
