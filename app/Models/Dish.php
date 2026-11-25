@@ -16,6 +16,13 @@ class Dish extends Model
     use HasFactory;
 
     /**
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'available' => true,
+    ];
+
+    /**
      * @return array<string, string>
      */
     protected function casts(): array
