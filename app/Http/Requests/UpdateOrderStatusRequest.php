@@ -6,7 +6,13 @@ use App\Enums\OrderStatus;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use OpenApi\Spec as OAS;
 
+#[OAS\Schema(
+    schema: 'OrderStatusInput',
+    required: ['status'],
+    properties: [new OAS\Property(property: 'status', schema: new OAS\Schema(type: 'string', enum: [OrderStatus::class], example: 'en_preparacion'))],
+)]
 class UpdateOrderStatusRequest extends FormRequest
 {
     /**

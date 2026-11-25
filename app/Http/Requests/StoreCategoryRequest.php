@@ -5,7 +5,13 @@ namespace App\Http\Requests;
 use App\Models\Category;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use OpenApi\Spec as OAS;
 
+#[OAS\Schema(
+    schema: 'CategoryInput',
+    required: ['name'],
+    properties: [new OAS\Property(property: 'name', schema: new OAS\Schema(type: 'string', maxLength: 100, example: 'Mariscos', description: 'Unique'))],
+)]
 class StoreCategoryRequest extends FormRequest
 {
     public function authorize(): bool

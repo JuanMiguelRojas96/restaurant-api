@@ -5,7 +5,18 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
+use OpenApi\Spec as OAS;
 
+#[OAS\Schema(
+    schema: 'RegisterInput',
+    required: ['name', 'email', 'password', 'password_confirmation'],
+    properties: [
+        new OAS\Property(property: 'name', schema: new OAS\Schema(type: 'string', maxLength: 255, example: 'Ana Gómez')),
+        new OAS\Property(property: 'email', schema: new OAS\Schema(type: 'string', format: 'email', example: 'ana@example.com')),
+        new OAS\Property(property: 'password', schema: new OAS\Schema(type: 'string', format: 'password', minLength: 8, example: 'secret123', description: 'At least 8 characters, letters and numbers')),
+        new OAS\Property(property: 'password_confirmation', schema: new OAS\Schema(type: 'string', format: 'password', example: 'secret123')),
+    ],
+)]
 class RegisterRequest extends FormRequest
 {
     /**
