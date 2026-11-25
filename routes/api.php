@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\DishController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\TableController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('tables', TableController::class)->only(['index', 'store', 'show']);
     Route::patch('tables/{table}/status', [TableController::class, 'updateStatus'])->name('tables.status');
+
+    Route::apiResource('orders', OrderController::class)->only(['index', 'store', 'show']);
+    Route::patch('orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.status');
+    Route::post('orders/{order}/items', [OrderController::class, 'addItems'])->name('orders.items.store');
 });

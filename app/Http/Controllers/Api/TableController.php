@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\BusinessRuleException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTableRequest;
 use App\Http\Requests\UpdateTableStatusRequest;
@@ -40,8 +41,15 @@ class TableController extends Controller
         return new TableResource($table);
     }
 
+    /**
+     * A table with an active order stays "ocupada": it is freed by paying or cancelling the order.
+     */
     public function updateStatus(UpdateTableStatusRequest $request, Table $table): TableResource
     {
+        if ($table->orders()->active()->exists()) {
+            throw new BusinessRuleException("Table {$table->number} has an active order. Pay or cancel it to free the table.");
+        }
+
         $table->update($request->validated());
 
         return new TableResource($table);
