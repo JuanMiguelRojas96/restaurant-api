@@ -41,6 +41,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function hasRole(Role ...$roles): bool
+    {
+        return in_array($this->role, $roles, true);
+    }
+
     /**
      * Orders opened by this user (as waiter).
      *
